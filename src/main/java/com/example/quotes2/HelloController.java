@@ -46,6 +46,18 @@ public class HelloController {
 
     @FXML
     void initialize() {
+
+        authSignInButton.setOnAction(event -> {
+            String loginText = loginField.getText().trim();
+            String loginPassword = passwordField.getText().trim();
+
+            if (!loginText.equals("") && !loginPassword.equals("")){
+                loginUser(loginText,loginPassword);
+            }
+            else{
+                System.out.println("Error. ");
+            }
+        });
         loginsignUpButton.setOnAction(event -> {
             loginsignUpButton.getScene().getWindow().hide();
             FXMLLoader loader = new FXMLLoader();
@@ -62,6 +74,9 @@ public class HelloController {
             stage.setScene(new Scene(root));
             stage.showAndWait();
         });
+    }
+
+    private void loginUser(String loginText, String loginPassword) {
     }
 
 }
