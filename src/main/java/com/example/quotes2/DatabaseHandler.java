@@ -11,31 +11,20 @@ public class DatabaseHandler { //database work
 
 
     public Connection getdbConnection() throws ClassNotFoundException, SQLException {
+        getAllQuotes();
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection dbСonnection = DriverManager.getConnection(
                 "jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_1920_quotes",
                 "std_1920_quotes", "passwordpassword");
 
-        String quotes = "SELECT * FROM Quotes";
         Statement statement = dbСonnection.createStatement();
-        ResultSet allquotes = statement.executeQuery(quotes);
-        QuotesDB forDB = new QuotesDB();
-        while(allquotes.next()) {
-            int id = allquotes.getInt("id");
-            String quote = allquotes.getString("quote");
-            String teacher = allquotes.getString("teacher");
-            String subject = allquotes.getString("subject");
-            String date = allquotes.getString("date");
-
-            System.out.println(id + quote + teacher + subject + date);
-        }
-
         String query = "SELECT id FROM Users";
         ResultSet findid = statement.executeQuery(query);
         while (findid.next()) {
             id++;
         }
         id++;
+
         return dbСonnection;
     }
 
@@ -63,4 +52,23 @@ public class DatabaseHandler { //database work
         return resSet;
 
     }
+
+    public  void getAllQuotes() throws SQLException, ClassNotFoundException {
+        String quotes = "SELECT * FROM Quotes";
+        PreparedStatement statement = getdbConnection().prepareStatement(quotes);
+        ResultSet allquotes = statement.executeQuery(quotes);
+        QuotesDB forDB = new QuotesDB();
+        QuotesDB qdb = new QuotesDB();
+        while(allquotes.next()) {
+            int id = allquotes.getInt("id");
+            String quote = allquotes.getString("quote");
+            String teacher = allquotes.getString("teacher");
+            String subject = allquotes.getString("subject");
+            String date = allquotes.getString("date");
+            String hi = id + quote + teacher + subject + date;
+            System.out.println(hi);
+           // qdb.AddQuotes(hi);
+        }
+    }
+
 }

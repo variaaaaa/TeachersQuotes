@@ -2,8 +2,7 @@ package com.example.quotes2;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -82,14 +81,13 @@ public class HelloController {
             counter++;
         }
         if (counter >= 1){
-            openNewScene("app.fxml");
+            openNewScene("forUser.fxml");
         }
     }
 
     public void openNewScene(String window){
         loginsignUpButton.getScene().getWindow().hide();
         FXMLLoader loader = new FXMLLoader();
-        System.out.println(getClass().getResource(window));
         loader.setLocation(getClass().getResource(window));
 
         try{
