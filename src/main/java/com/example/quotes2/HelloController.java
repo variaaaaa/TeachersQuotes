@@ -2,6 +2,8 @@ package com.example.quotes2;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -52,7 +54,13 @@ public class HelloController {
             String loginPassword = passwordField.getText().trim();
 
             if (!loginText.equals("") && !loginPassword.equals("")){
-                loginUser(loginText,loginPassword);
+                try {
+                    loginUser(loginText,loginPassword);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
             }
             else{
                 System.out.println("Error. ");
@@ -76,7 +84,36 @@ public class HelloController {
         });
     }
 
-    private void loginUser(String loginText, String loginPassword) {
+    private void loginUser(String loginText, String loginPassword) throws SQLException, ClassNotFoundException {
+        DatabaseHandler dbHandler = new DatabaseHandler();
+        User user = new User();
+        user.setLogin(loginText);
+        user.setPassword(loginPassword);
+       // user.setRole(role);
+        ResultSet result = dbHandler.getUser(user);
+
+        int counter = 0;
+        while (result.next()){
+            counter++;
+        }
+        if (counter >= 1){
+            loginsignUpButton.getScene().getWindow().hide();
+            FXMLLoader loader = new FXMLLoader();
+            System.out.println(getClass().getResource("signup.fxml"));
+            loader.setLocation(getClass().getResource("signup.fxml"));
+
+            try{
+                loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        }
     }
+
+    public void 
 
 }

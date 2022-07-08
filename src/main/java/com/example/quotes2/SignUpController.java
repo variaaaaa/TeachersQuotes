@@ -1,61 +1,15 @@
 package com.example.quotes2;
 
-        import java.net.URL;
-        import java.util.ResourceBundle;
-        import javafx.event.ActionEvent;
-        import javafx.fxml.FXML;
-        import javafx.scene.control.Button;
-        import javafx.scene.control.Label;
-        import javafx.scene.control.PasswordField;
-        import javafx.scene.control.TextField;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class SignUpController {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
-    private TextField loginField;
-
-    @FXML
-    private TextField loginField1;
-
-    @FXML
-    private Button signUpButton;
-
-    @FXML
-    private PasswordField passwordField;
-
-    @FXML
-    private Label welcomeText;
-
-    @FXML
-    void onHelloButtonClick(ActionEvent event) {
-        System.out.println("im here");
-    }
-
-    @FXML
-    void initialize() {
-        DatabaseHandler dbHandler = new DatabaseHandler();
-        signUpButton.setOnAction(event -> {
-            dbHandler.signUpUser(signuo);
-                });
-    }
-
-}
-package com.example.quotes2;
-
-        import java.net.URL;
-        import java.util.ResourceBundle;
-        import javafx.event.ActionEvent;
-        import javafx.fxml.FXML;
-        import javafx.scene.control.Button;
-        import javafx.scene.control.Label;
-        import javafx.scene.control.PasswordField;
-        import javafx.scene.control.TextField;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
 public class SignUpController {
 
@@ -87,10 +41,27 @@ public class SignUpController {
 
     @FXML
     void initialize() {
-        DatabaseHandler dbHandler = new DatabaseHandler();
         signUpButton.setOnAction(event -> {
-            dbHandler.signUpUser(signuo);
+            try {
+                signUpNewUser();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         });
+    }
+
+    private void signUpNewUser() throws SQLException, ClassNotFoundException {
+        DatabaseHandler dbHandler = new DatabaseHandler();
+        String login = signupField.getText();
+        String password = passwordsuField.getText();
+        String role = this.role.getText();
+        int id = DatabaseHandler.getId();
+
+
+        User user = new User(id, login,password,role);
+        dbHandler.signUpUser(user);
     }
 
 }
