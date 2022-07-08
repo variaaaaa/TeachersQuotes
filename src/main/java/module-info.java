@@ -7,4 +7,6 @@ module com.example.quotes2 {
 
     opens com.example.quotes2 to javafx.fxml;
     exports com.example.quotes2;
+    exports com.example.quotes2.Controllers;
+    opens com.example.quotes2.Controllers to javafx.fxml;
 }

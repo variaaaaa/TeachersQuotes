@@ -1,4 +1,4 @@
-package com.example.quotes2;
+package com.example.quotes2.Controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;

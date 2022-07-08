@@ -1,14 +1,13 @@
-package com.example.quotes2;
+package com.example.quotes2.Controllers;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 
-public class SignInController {
+public class SuperUserController {
 
     @FXML
     private ResourceBundle resources;
@@ -17,13 +16,13 @@ public class SignInController {
     private URL location;
 
     @FXML
-    private TextField loginField;
+    private Button DeleteAllQ;
 
     @FXML
-    private Button loginsignUpButton;
+    private Button editAllQ;
 
     @FXML
-    private PasswordField passwordField;
+    private Button lookAll;
 
     @FXML
     private Label welcomeText;
