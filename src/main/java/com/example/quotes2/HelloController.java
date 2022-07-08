@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.event.WeakEventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -67,20 +65,7 @@ public class HelloController {
             }
         });
         loginsignUpButton.setOnAction(event -> {
-            loginsignUpButton.getScene().getWindow().hide();
-            FXMLLoader loader = new FXMLLoader();
-            System.out.println(getClass().getResource("signup.fxml"));
-            loader.setLocation(getClass().getResource("signup.fxml"));
-
-            try{
-                loader.load();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            Parent root = loader.getRoot();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
+            openNewScene("signup.fxml");
         });
     }
 
@@ -97,20 +82,24 @@ public class HelloController {
             counter++;
         }
         if (counter >= 1){
-            loginsignUpButton.getScene().getWindow().hide();
-            FXMLLoader loader = new FXMLLoader();
-            System.out.println(getClass().getResource("app.fxml"));
-            loader.setLocation(getClass().getResource("app.fxml"));
-
-            try{
-                loader.load();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            Parent root = loader.getRoot();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
+            openNewScene("app.fxml");
         }
+    }
+
+    public void openNewScene(String window){
+        loginsignUpButton.getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader();
+        System.out.println(getClass().getResource(window));
+        loader.setLocation(getClass().getResource(window));
+
+        try{
+            loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
     }
 }
