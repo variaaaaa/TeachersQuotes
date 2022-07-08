@@ -2,7 +2,7 @@ package com.example.quotes2;
 
 import java.sql.*;
 
-public class DatabaseHandler {
+public class DatabaseHandler { //database work
     private static int id;
 
     public static int getId() {
@@ -16,15 +16,26 @@ public class DatabaseHandler {
                 "jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_1920_quotes",
                 "std_1920_quotes", "passwordpassword");
 
-        String query = "SELECT id FROM Users";
+        String quotes = "SELECT * FROM Quotes";
         Statement statement = dbСonnection.createStatement();
+        ResultSet allquotes = statement.executeQuery(quotes);
+        QuotesDB forDB = new QuotesDB();
+        while(allquotes.next()) {
+            int id = allquotes.getInt("id");
+            String quote = allquotes.getString("quote");
+            String teacher = allquotes.getString("teacher");
+            String subject = allquotes.getString("subject");
+            String date = allquotes.getString("date");
+
+            System.out.println(id + quote + teacher + subject + date);
+        }
+
+        String query = "SELECT id FROM Users";
         ResultSet findid = statement.executeQuery(query);
         while (findid.next()) {
             id++;
         }
         id++;
-
-
         return dbСonnection;
     }
 

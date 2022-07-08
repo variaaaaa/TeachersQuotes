@@ -99,8 +99,8 @@ public class HelloController {
         if (counter >= 1){
             loginsignUpButton.getScene().getWindow().hide();
             FXMLLoader loader = new FXMLLoader();
-            System.out.println(getClass().getResource("signup.fxml"));
-            loader.setLocation(getClass().getResource("signup.fxml"));
+            System.out.println(getClass().getResource("app.fxml"));
+            loader.setLocation(getClass().getResource("app.fxml"));
 
             try{
                 loader.load();
@@ -113,7 +113,4 @@ public class HelloController {
             stage.showAndWait();
         }
     }
-
-    public void 
-
 }

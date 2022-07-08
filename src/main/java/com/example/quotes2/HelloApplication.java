@@ -6,13 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
-        stage.setTitle("My first app");
+        stage.setTitle("Teachers' quotes");
         stage.setScene(new Scene(root, 300,400) );
         stage.show();
     }
