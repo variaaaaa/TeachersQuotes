@@ -1,4 +1,4 @@
-package com.example.quotes2.Controllers;
+package com.example.quotes2;
 
 import java.net.URL;
 import java.sql.SQLException;

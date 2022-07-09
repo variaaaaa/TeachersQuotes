@@ -1,4 +1,4 @@
-package com.example.quotes2.Controllers;
+package com.example.quotes2;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class VerificatorController {
+public class SuperUserController {
 
     @FXML
     private ResourceBundle resources;
@@ -16,10 +16,10 @@ public class VerificatorController {
     private URL location;
 
     @FXML
-    private Button DeleteGroupQ;
+    private Button DeleteAllQ;
 
     @FXML
-    private Button editGroupQ;
+    private Button editAllQ;
 
     @FXML
     private Button lookAll;

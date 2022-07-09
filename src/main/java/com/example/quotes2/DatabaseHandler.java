@@ -11,7 +11,7 @@ public class DatabaseHandler { //database work
 
 
     public Connection getdbConnection() throws ClassNotFoundException, SQLException {
-        getAllQuotes();
+        //getAllQuotes();
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection dbСonnection = DriverManager.getConnection(
                 "jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_1920_quotes",
@@ -20,16 +20,16 @@ public class DatabaseHandler { //database work
         Statement statement = dbСonnection.createStatement();
         String query = "SELECT id FROM Users";
         ResultSet findid = statement.executeQuery(query);
+       // getAllQuotes();
         while (findid.next()) {
             id++;
         }
         id++;
-
+        getAllQuotes();
         return dbСonnection;
     }
 
     public void signUpUser(User user) throws SQLException, ClassNotFoundException {
-
         String insert = "INSERT INTO Users(id, login,password,role) VALUES(?,?,?,?) ";
         PreparedStatement prSt = getdbConnection().prepareStatement(insert);
         prSt.setString(1, Integer.toString(this.id));
@@ -44,7 +44,8 @@ public class DatabaseHandler { //database work
 
         String select = "SELECT * FROM Users WHERE login =? AND password =?";
 
-        PreparedStatement prSt = getdbConnection().prepareStatement(select);
+        PreparedStatement prSt;
+        prSt = getdbConnection().prepareStatement(select);
         prSt.setString(1, user.getLogin());
         prSt.setString(2, user.getPassword());
         resSet = prSt.executeQuery();
@@ -53,7 +54,7 @@ public class DatabaseHandler { //database work
 
     }
 
-    public  void getAllQuotes() throws SQLException, ClassNotFoundException {
+    public void getAllQuotes() throws SQLException, ClassNotFoundException {
         String quotes = "SELECT * FROM Quotes";
         PreparedStatement statement = getdbConnection().prepareStatement(quotes);
         ResultSet allquotes = statement.executeQuery(quotes);

@@ -1,13 +1,13 @@
-package com.example.quotes2.Controllers;
+package com.example.quotes2;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import com.example.quotes2.DatabaseHandler;
-import com.example.quotes2.User;
 import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -84,6 +84,7 @@ public class HelloController {
             counter++;
         }
         if (counter >= 1){
+            //System.out.println("here");
             openNewScene("forUser.fxml");
         }
     }
@@ -91,6 +92,7 @@ public class HelloController {
     public void openNewScene(String window){
         loginsignUpButton.getScene().getWindow().hide();
         FXMLLoader loader = new FXMLLoader();
+        System.out.println(getClass().getResource(window));
         loader.setLocation(getClass().getResource(window));
 
         try{

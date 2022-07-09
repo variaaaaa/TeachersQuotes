@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class Guest {
+public class GuestController {
 
     @FXML
     private ResourceBundle resources;
@@ -16,19 +16,7 @@ public class Guest {
     private URL location;
 
     @FXML
-    private Button Add;
-
-    @FXML
-    private Button Delete;
-
-    @FXML
-    private Button Edit;
-
-    @FXML
     private Button lookAll;
-
-    @FXML
-    private Button lookMine;
 
     @FXML
     private Label welcomeText;
