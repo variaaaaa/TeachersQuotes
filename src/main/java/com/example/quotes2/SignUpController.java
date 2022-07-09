@@ -4,8 +4,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import com.example.quotes2.DatabaseHandler;
-import com.example.quotes2.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -60,7 +58,6 @@ public class SignUpController {
         String password = passwordsuField.getText();
         String role = this.role.getText();
         int id = DatabaseHandler.getId();
-
 
         User user = new User(id, login,password,role);
         dbHandler.signUpUser(user);

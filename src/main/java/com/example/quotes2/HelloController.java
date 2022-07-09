@@ -78,13 +78,14 @@ public class HelloController {
         user.setPassword(loginPassword);
        // user.setRole(role);
         ResultSet result = dbHandler.getUser(user);
+        dbHandler.getAllQuotes();
+        dbHandler.getAllUsers();
 
         int counter = 0;
         while (result.next()){
             counter++;
         }
         if (counter >= 1){
-            //System.out.println("here");
             openNewScene("forUser.fxml");
         }
     }
