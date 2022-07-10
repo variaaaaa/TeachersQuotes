@@ -3,7 +3,6 @@ package com.example.quotes2;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,8 +27,10 @@ public class GuestController {
 
     @FXML
     public void viewALlQs() {
+        //lookAll.getScene().getWindow().hide();
         FXMLLoader loader = new FXMLLoader();
-        System.out.println(getClass().getResource("previewQuotes.fxml"));
+//        lookAll.getScene().getWindow().hide();
+        //System.out.println(getClass().getResource("previewQuotes.fxml"));
         loader.setLocation(getClass().getResource("previewQuotes.fxml"));
         try{
             loader.load();

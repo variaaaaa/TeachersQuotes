@@ -3,20 +3,22 @@ package com.example.quotes2;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+
 public class  QuotesDB extends Quote {
-    ObservableList<Quote> data;
+    ArrayList<Quote> data;
 
 
     public QuotesDB() {
-        this.data = FXCollections.observableArrayList();
+        this.data = new ArrayList<>();
 
     }
 
-    public ObservableList<Quote> getQuotes() {
+    public ArrayList<Quote> getQuotes() {
         return data;
     }
 
-    public void setUsers(ObservableList<Quote>data) {
+    public void setUsers(ArrayList<Quote>data) {
         this.data = data;
     }
 

@@ -9,12 +9,13 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quotes2.DBviewController">
    <children>
-      <TableView layoutX="48.0" layoutY="146.0" prefHeight="200.0" prefWidth="511.0">
+      <TableView fx:id="quotesTable" layoutX="42.0" layoutY="147.0" prefHeight="226.0" prefWidth="541.0">
         <columns>
-          <TableColumn prefWidth="171.99996948242188" text="quote" />
-          <TableColumn prefWidth="128.6666259765625" text="teacher" />
-            <TableColumn prefWidth="116.00006103515625" text="subject" />
-            <TableColumn prefWidth="94.6666259765625" text="date" />
+          <TableColumn fx:id="idColumn" prefWidth="37.33331298828125" text="id" />
+          <TableColumn fx:id="quoteColumn" prefWidth="141.33334350585938" text="quote" />
+            <TableColumn fx:id="teacherColumn" prefWidth="154.0" text="teacher" />
+            <TableColumn fx:id="subjectColumn" prefWidth="98.0" text="subject" />
+            <TableColumn fx:id="dateColumn" prefWidth="108.6666259765625" text="date" />
         </columns>
       </TableView>
       <Text layoutX="224.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quotes" wrappingWidth="178.08740234375">
@@ -22,6 +23,6 @@
             <Font name="Bodoni MT Condensed" size="67.0" />
          </font>
       </Text>
-      <Button layoutX="56.0" layoutY="103.0" onAction="#loadDate" text="Обновить" />
+      <Button layoutX="56.0" layoutY="103.0" onAction="#refreshTable" text="Обновить" />
    </children>
 </AnchorPane>

@@ -29,7 +29,7 @@ public class Quote {
         this.subject = subject;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -45,11 +45,11 @@ public class Quote {
         this.quote = quote;
     }
 
-    public String getTeachers() {
+    public String getTeacher() {
         return teacher;
     }
 
-    public void setTeacher(String author) {
+    public void setTeacher(String teacher) {
         this.teacher = teacher;
     }
 
