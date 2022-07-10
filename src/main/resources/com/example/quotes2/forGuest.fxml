@@ -19,7 +19,7 @@
                     <Font name="Book Antiqua" size="24.0" />
                 </font>
             </Label>
-         <Button fx:id="lookAll" layoutX="67.0" layoutY="158.0" onAction="#onHelloButtonClick" prefHeight="25.0" prefWidth="165.0" text="Посмотреть все цитаты" />
+         <Button fx:id="lookAll" layoutX="67.0" layoutY="158.0" onAction="#viewALlQs" prefHeight="25.0" prefWidth="165.0" text="Посмотреть все цитаты" />
         </children>
     </AnchorPane>
 </VBox>

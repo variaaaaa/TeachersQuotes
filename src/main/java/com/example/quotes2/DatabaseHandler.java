@@ -14,7 +14,7 @@ public class DatabaseHandler { //database work
         }
     }
 
-    public static void makeConnection(){
+    public void makeConnection(){
         try {
             connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_1920_quotes",
                     "std_1920_quotes", "passwordpassword");
@@ -77,7 +77,7 @@ public class DatabaseHandler { //database work
 
     }
 
-    public void getAllQuotes() throws SQLException, ClassNotFoundException {
+    public QuotesDB getAllQuotes() throws SQLException, ClassNotFoundException {
         makeConnection();
         String quotes = "SELECT * FROM Quotes";
         PreparedStatement statement = connection.prepareStatement(quotes);
@@ -87,11 +87,12 @@ public class DatabaseHandler { //database work
             Quote q = new Quote();
             q.setId(allquotes.getInt(1));
             q.setQuote(allquotes.getString(2));
-            q.setAuthor(allquotes.getString(3));
+            q.setTeacher(allquotes.getString(3));
             q.setSubject(allquotes.getString(4));
-            q.setDate(allquotes.getString(5));
+            q.setDate(allquotes.getDate(5));
             database.addQuote(q);
         }
+        return database;
     }
 
     public void getAllUsers() throws SQLException {

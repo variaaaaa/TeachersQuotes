@@ -1,13 +1,17 @@
 package com.example.quotes2;
 
 
+import java.sql.Date;
+
 public class Quote {
     public int id;
-    public String quote, author, subject, date;
+    public String quote, teacher, subject;
+    public Date date;
 
     public Quote() {
 
     }
+
 
     public String getSubject() {
         return subject;
@@ -17,10 +21,12 @@ public class Quote {
         this.subject = subject;
     }
 
-    public Quote(String quote, String author, String subject, String date) {
+    public Quote(int id, String quote, String teacher, String subject, Date date) {
+        this.id = id;
         this.quote = quote;
-        this.author = author;
+        this.teacher = teacher;
         this.date = date;
+        this.subject = subject;
     }
 
     public long getId() {
@@ -39,19 +45,19 @@ public class Quote {
         this.quote = quote;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getTeachers() {
+        return teacher;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setTeacher(String author) {
+        this.teacher = teacher;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }

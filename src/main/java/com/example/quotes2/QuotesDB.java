@@ -1,21 +1,22 @@
 package com.example.quotes2;
 
-import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-public class  QuotesDB {
-    public ArrayList<Quote> data;
+public class  QuotesDB extends Quote {
+    ObservableList<Quote> data;
 
 
     public QuotesDB() {
-        this.data = new ArrayList<Quote>();
+        this.data = FXCollections.observableArrayList();
 
     }
 
-    public ArrayList<Quote> getQuotes() {
+    public ObservableList<Quote> getQuotes() {
         return data;
     }
 
-    public void setUsers(ArrayList<Quote> data) {
+    public void setUsers(ObservableList<Quote>data) {
         this.data = data;
     }
 
@@ -23,4 +24,7 @@ public class  QuotesDB {
         data.add(quote);
     }
 
+    public void clearQuotes() {
+        data.clear();
+    }
 }

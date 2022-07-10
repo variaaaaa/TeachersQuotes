@@ -27,21 +27,6 @@ public class User {
 //        return null;
 //    }
 
-//    public void save(){
-//        if (this.id == -1 ){
-//            try {
-//               // id =  DatabaseHandler.createUser(this);
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }else {
-//            try {
-//                //DatabaseHandler.updateuser(this);
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
- //   }
 
     public String getLogin() {
         return login;
