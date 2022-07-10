@@ -88,6 +88,16 @@ public class HelloController {
         }
         if (counter >= 1){
             openNewScene("forUser.fxml");
+            if (user.getRole() == "user"){
+                openNewScene("forUser.fxml");
+            }
+            if (user.getRole() == "superUser"){
+                openNewScene("forSuperuser.fxml");
+            }
+            if (user.getRole() == "verificator"){
+                openNewScene("forVerificator.fxml");
+            }
+
         }
     }
 

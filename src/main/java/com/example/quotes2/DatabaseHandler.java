@@ -77,6 +77,19 @@ public class DatabaseHandler { //database work
 
     }
 
+    public String getUserRole(User user) throws SQLException, ClassNotFoundException{
+        makeConnection();
+        ResultSet resSet = null;
+
+        String select = "SELECT role FROM Users WHERE login =? AND password =?";
+
+        PreparedStatement prSt;
+        prSt = connection.prepareStatement(select);
+        prSt.setString(-1, user.getRole());
+
+        return String.valueOf(prSt);
+    }
+
     public QuotesDB getAllQuotes() throws SQLException, ClassNotFoundException {
         makeConnection();
         String quotes = "SELECT * FROM Quotes";
@@ -112,23 +125,4 @@ public class DatabaseHandler { //database work
         }
         closeConnection();
     }
-
-        //    public Connection getdbConnection() throws ClassNotFoundException, SQLException {
-//        //getAllQuotes();
-//        Class.forName("com.mysql.cj.jdbc.Driver");
-//        Connection dbСonnection = DriverManager.getConnection(
-//                "jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_1920_quotes",
-//                "std_1920_quotes", "passwordpassword");
-//
-//        Statement statement = dbСonnection.createStatement();
-//        String query = "SELECT id FROM Users";
-//        ResultSet findid = statement.executeQuery(query);
-//        // getAllQuotes();
-//        while (findid.next()) {
-//            id++;
-//        }
-//        id++;
-//        //getAllQuotes();
-//        return dbСonnection;
-//    }
 }

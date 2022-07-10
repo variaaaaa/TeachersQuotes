@@ -67,7 +67,6 @@ public class DBviewController implements Initializable {
             teacherColumn.setCellValueFactory(new PropertyValueFactory<>("teacher"));
             subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
             dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-
             quotesTable.setItems(quotesData);
         }
     }
@@ -77,7 +76,6 @@ public class DBviewController implements Initializable {
         connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_1920_quotes",
                 "std_1920_quotes", "passwordpassword");
         quotesData.clear();
-
         query = "SELECT * FROM `Quotes`";
         preparedStatement = connection.prepareStatement(query);
         resultSet = preparedStatement.executeQuery();
@@ -94,7 +92,6 @@ public class DBviewController implements Initializable {
             dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
             quotesTable.setItems(quotesData);
-
         }
     }
 }
