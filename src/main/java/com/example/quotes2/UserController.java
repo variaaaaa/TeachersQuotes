@@ -35,15 +35,14 @@ public class UserController {
     private Label welcomeText;
 
     @FXML
-    void onHelloButtonClick(ActionEvent event) {
+    void addInfo() {
+        System.out.println("added!");
 
     }
 
     @FXML
-    void initialize() {
-        lookAll.setOnAction(event -> {
-
-        });
+    void deleteInfo(){
+        System.out.println("delete?");
     }
 
 }

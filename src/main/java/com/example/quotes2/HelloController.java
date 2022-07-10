@@ -42,34 +42,29 @@ public class HelloController {
     private Label welcomeText;
 
     @FXML
-    void onHelloButtonClick(ActionEvent event) {
+    void setAuthSignInButton() {
+        String loginText = loginField.getText().trim();
+        String loginPassword = passwordField.getText().trim();
 
+        if (!loginText.equals("") && !loginPassword.equals("")){
+            try {
+                loginUser(loginText,loginPassword);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else{
+            System.out.println("Error. ");
+        }
     }
 
     @FXML
-    void initialize() {
-
-        authSignInButton.setOnAction(event -> {
-            String loginText = loginField.getText().trim();
-            String loginPassword = passwordField.getText().trim();
-
-            if (!loginText.equals("") && !loginPassword.equals("")){
-                try {
-                    loginUser(loginText,loginPassword);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                } catch (ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            else{
-                System.out.println("Error. ");
-            }
-        });
-        loginsignUpButton.setOnAction(event -> {
-            openNewScene("signup.fxml");
-        });
+    void setLoginsignUpButton(){
+        openNewScene("signup.fxml");
     }
+
 
     private void loginUser(String loginText, String loginPassword) throws SQLException, ClassNotFoundException {
         DatabaseHandler dbHandler = new DatabaseHandler();

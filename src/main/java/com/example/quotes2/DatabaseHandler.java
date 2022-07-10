@@ -3,13 +3,15 @@ package com.example.quotes2;
 import java.sql.*;
 
 public class DatabaseHandler { //database work
-    private static int id;
     private static Connection connection;
     private static Statement statement;
-    private static PreparedStatement prSt;
 
-    public static int getId() {
-        return id;
+    public int getId() {
+        try {
+            return MyID();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void makeConnection(){
@@ -33,7 +35,8 @@ public class DatabaseHandler { //database work
         }
     }
 
-    public void MyID() throws SQLException {
+    public int MyID() throws SQLException {
+        int id = 0;
         makeConnection();
         statement = connection.createStatement();
         String query = "SELECT id FROM Users";
@@ -42,13 +45,16 @@ public class DatabaseHandler { //database work
             id++;
         }
         id++;
+        return id;
     }
 
     public void signUpUser(User user) throws SQLException, ClassNotFoundException {
         makeConnection();
         String insert = "INSERT INTO Users(id, login,password,role) VALUES(?,?,?,?) ";
-        prSt.executeQuery(insert);
-        prSt.setString(1, Integer.toString(this.id));
+        PreparedStatement prSt;
+        prSt = connection.prepareStatement(insert);
+//        prSt.executeQuery(insert);
+        prSt.setString(1, Integer.toString(this.MyID()));
         prSt.setString(2, user.getLogin());
         prSt.setString(3, user.getPassword());
         prSt.setString(4, user.getRole());
@@ -102,8 +108,6 @@ public class DatabaseHandler { //database work
             user.setRole(resultSet.getString(4));
             users.addUser(user);
             users.getUsers();
-            System.out.println("here");
-            System.out.println(user.getLogin() + user.getId());
         }
         closeConnection();
     }

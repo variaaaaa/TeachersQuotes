@@ -35,21 +35,15 @@ public class SignUpController {
     private Label welcomeText;
 
     @FXML
-    void onHelloButtonClick(ActionEvent event) {
+    void setSignUpButton() {
+        try {
+            signUpNewUser();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
-    }
-
-    @FXML
-    void initialize() {
-        signUpButton.setOnAction(event -> {
-            try {
-                signUpNewUser();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        });
     }
 
     private void signUpNewUser() throws SQLException, ClassNotFoundException {
@@ -57,7 +51,7 @@ public class SignUpController {
         String login = signupField.getText();
         String password = passwordsuField.getText();
         String role = this.role.getText();
-        int id = DatabaseHandler.getId();
+        int id = dbHandler.MyID();
 
         User user = new User(id, login,password,role);
         dbHandler.signUpUser(user);

@@ -32,9 +32,5 @@ public class VerificatorController {
 
     }
 
-    @FXML
-    void initialize() {
-
-    }
 
 }

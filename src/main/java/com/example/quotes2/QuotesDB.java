@@ -3,7 +3,7 @@ package com.example.quotes2;
 import java.util.ArrayList;
 
 public class  QuotesDB {
-    private ArrayList<Quote> data;
+    public ArrayList<Quote> data;
 
 
     public QuotesDB() {

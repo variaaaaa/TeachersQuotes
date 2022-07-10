@@ -26,9 +26,4 @@ public class GuestController {
 
     }
 
-    @FXML
-    void initialize() {
-
-    }
-
 }
