@@ -1,10 +1,8 @@
 package com.example.quotes2;
 
 import java.net.URL;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,7 +10,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class AddQuote {
+public class editQuote {
 
     @FXML
     private ResourceBundle resources;
@@ -30,6 +28,9 @@ public class AddQuote {
     private TextField quoteField;
 
     @FXML
+    private TextField quoteField1;
+
+    @FXML
     private TextField subjectField;
 
     @FXML
@@ -38,19 +39,9 @@ public class AddQuote {
     @FXML
     private Label welcomeText;
 
-
     @FXML
-    public void setQuote() throws SQLException, ClassNotFoundException {
-        DatabaseHandler dbHandler = new DatabaseHandler();
-        int id = dbHandler.QID();
-        String quote = quoteField.getText();
-        String teacher = teacherField.getText();
-        String subject = subjectField.getText();
-        Date date = Date.valueOf(dataField.getValue());
-        int userID = HelloController.user.getId();
+    void setQuote(ActionEvent event) {
 
-        Quote newQuote = new Quote(id, quote, teacher, subject, date, userID);
-        dbHandler.addQuote(newQuote);
     }
 
     @FXML
@@ -59,5 +50,4 @@ public class AddQuote {
     }
 
 }
-
 

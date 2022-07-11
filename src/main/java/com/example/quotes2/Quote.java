@@ -4,7 +4,7 @@ package com.example.quotes2;
 import java.sql.Date;
 
 public class Quote {
-    public int id, id_user;
+    public int id, userID;
     public String quote, teacher, subject;
     public Date date;
 
@@ -21,12 +21,13 @@ public class Quote {
         this.subject = subject;
     }
 
-    public Quote(int id, String quote, String teacher, String subject, Date date) {
+    public Quote(int id, String quote, String teacher, String subject, Date date, int userID) {
         this.id = id;
         this.quote = quote;
         this.teacher = teacher;
         this.date = date;
         this.subject = subject;
+        this.userID = userID;
     }
 
     public int getId() {

@@ -2,14 +2,12 @@ package com.example.quotes2;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.w3c.dom.events.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -17,7 +15,6 @@ import java.sql.*;
 import java.util.ResourceBundle;
 
 public class DBviewController implements Initializable {
-    ObservableList<Quote> quotesData = FXCollections.observableArrayList();
     @FXML
     private Button DeleteButton;
 
@@ -52,12 +49,21 @@ public class DBviewController implements Initializable {
     private TableColumn<Quote, Date> dateColumn;
 
     @FXML
+    private TableColumn<Quote, Integer> iduColumn;
+
+    @FXML
     private Button viewMyQ;
 
+    ObservableList<Quote> quotesData = FXCollections.observableArrayList();
     String query = null;
     Connection connection = null;
     PreparedStatement preparedStatement = null;
-    ResultSet resultSet;
+    ResultSet resultSet = null;
+    Quote quote = null;
+    DatabaseHandler db = new DatabaseHandler();
+
+    public static int currentQuoteId;
+    public static int currentQuoteUserId;
 
 
     @Override
@@ -67,6 +73,47 @@ public class DBviewController implements Initializable {
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @FXML
+    void initialize() throws SQLException, ClassNotFoundException {
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_1920_quotes",
+                    "std_1920_quotes", "passwordpassword");
+
+
+            if (HelloController.user.getRole().equals("User")) {
+                query = "SELECT * FROM Quotes WHERE id_user = ?";
+                preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, HelloController.user.getId());
+            } else if (HelloController.user.getRole().equals("Verificator")) {
+                query = "SELECT * FROM Quotes WHERE id_user IN (SELECT id FROM users WHERE study_group = ?)";
+                preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, HelloController.user.getStudy_group());
+            } else if (HelloController.user.getRole().equals("Superuser")) {
+                query = "SELECT * FROM quotes_teachers";
+                preparedStatement = connection.prepareStatement(query);
+            }
+
+            ResultSet result = preparedStatement.executeQuery();
+
+            while (result.next()) {
+                String quote = result.getString("quote");
+                String teacher = result.getString("teacher");
+                String subject = result.getString("subject");
+                Date date = result.getDate("date");
+
+               quotesTable.getItems().addAll(new Quote(currentQuoteId, quote, teacher, subject, date, currentQuoteUserId));
+            }
+
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        quoteColumn.setCellValueFactory(new PropertyValueFactory<>("quote"));
+        teacherColumn.setCellValueFactory(new PropertyValueFactory<>("teacher"));
+        subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
     }
 
     public void loadData() throws SQLException, ClassNotFoundException {
@@ -103,11 +150,14 @@ public class DBviewController implements Initializable {
                     resultSet.getString("quote"),
                     resultSet.getString("teacher"),
                     resultSet.getString("subject"),
-                    resultSet.getDate("date")));
+                    resultSet.getDate("date"),
+                    resultSet.getInt(6)));
+            idColumn.setCellValueFactory(new PropertyValueFactory<>("quote"));
             quoteColumn.setCellValueFactory(new PropertyValueFactory<>("quote"));
             teacherColumn.setCellValueFactory(new PropertyValueFactory<>("teacher"));
             subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
             dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+            iduColumn.setCellValueFactory(new PropertyValueFactory<>("id_user"));
 
             quotesTable.setItems(quotesData);
         }
