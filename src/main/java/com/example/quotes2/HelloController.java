@@ -58,7 +58,7 @@ public class HelloController {
 
     @FXML
     void setLoginsignUpButton() throws IOException {
-        HelloApplication.openNewScene("signup.fxml");
+        HelloApplication.openNewScene(loginsignUpButton,"signup.fxml");
     }
 
 
@@ -77,14 +77,14 @@ public class HelloController {
             user.setStudy_group(result.getString(4));
             user.setRole(result.getString(5));
             authSignInButton.getScene().getWindow().hide();
-            HelloApplication.openNewScene("previewQuotes.fxml");
+            HelloApplication.openNewScene(authSignInButton,"previewQuotes.fxml");
         }
     }
 
     @FXML
     public void asGuest() throws IOException {
         user.setRole("Guest");
-        HelloApplication.openNewScene("previewQuotes.fxml");
+        HelloApplication.openNewScene(guestButton,"previewQuotes.fxml");
     }
 
 }

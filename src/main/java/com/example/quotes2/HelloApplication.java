@@ -23,10 +23,9 @@ public class HelloApplication extends Application {
         launch();
     }
 
-    public static void openNewScene(String window) throws IOException {
-//        signUpButton.getScene().getWindow().hide();
+    public static void openNewScene(Button button, String window) throws IOException {
+        button.getScene().getWindow().hide();
         Stage stage = new Stage();
-
         Parent root = FXMLLoader.load(HelloApplication.class.getResource(window));
         stage.setScene(new Scene(root));
         stage.setTitle("Teachers' quotes");

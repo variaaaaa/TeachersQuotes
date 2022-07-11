@@ -80,6 +80,43 @@ public class DBviewController implements Initializable {
             addButton.setDisable(true);
             viewMyQ.setDisable(true);
         }
+        if (HelloController.user.getRole().equals("User")) {
+            DeleteButton.setDisable(true);
+            editButton.setDisable(true);
+            quotesTable.setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if ((HelloController.user.getId() == quotesTable.getSelectionModel().getSelectedItem().userID)) {
+                        DeleteButton.setDisable(false);
+                        editButton.setDisable(false);
+                    } else {
+                        DeleteButton.setDisable(true);
+                        editButton.setDisable(true);
+                    }
+                }
+            });
+        }
+
+        if (HelloController.user.getRole().equals("Superuser")) {
+            DeleteButton.setDisable(true);
+            editButton.setDisable(true);
+        }
+        if (HelloController.user.getRole().equals("Verificator")) {
+            DeleteButton.setDisable(true);
+            editButton.setDisable(true);
+            quotesTable.setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if ((HelloController.user.getId() == quotesTable.getSelectionModel().getSelectedItem().userID)) {
+                        DeleteButton.setDisable(false);
+                        editButton.setDisable(false);
+                    } else {
+                        DeleteButton.setDisable(true);
+                        editButton.setDisable(true);
+                    }
+                }
+            });
+        }
         try {
             loadData();
         } catch (SQLException | ClassNotFoundException e) {
@@ -89,7 +126,7 @@ public class DBviewController implements Initializable {
 
     @FXML
     void initialize() throws SQLException, ClassNotFoundException {
-        loadData();
+
     }
 
     public void loadData() throws SQLException, ClassNotFoundException {
@@ -108,7 +145,7 @@ public class DBviewController implements Initializable {
 
     @FXML
     private void AddQuote() throws IOException {
-        HelloApplication.openNewScene("AddQuote.fxml");
+        HelloApplication.openNewScene(addButton,"AddQuote.fxml");
     }
 
     @FXML
@@ -211,10 +248,18 @@ public class DBviewController implements Initializable {
 
     @FXML
     public void backToMenu() throws IOException {
-        BackToMenu.getScene().getWindow().hide();
-        HelloApplication.openNewScene("hello-view.fxml");
+        HelloApplication.openNewScene(BackToMenu,"hello-view.fxml");
     }
 
+    @FXML
+    public void viewALLQs() throws SQLException, ClassNotFoundException {
+        loadData();
+        DeleteButton.setDisable(true);
+        editButton.setDisable(true);
+        addButton.setDisable(true);
+        viewMyQ.setDisable(true);
+        quotesData.clear();
+    }
 }
 
 
