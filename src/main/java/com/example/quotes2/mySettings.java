@@ -1,16 +1,17 @@
 package com.example.quotes2;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class editQuote {
+public class mySettings {
 
     @FXML
     private ResourceBundle resources;
@@ -22,43 +23,30 @@ public class editQuote {
     private Button addQuoteButton;
 
     @FXML
-    private DatePicker dataField;
+    private TextField loginField;
 
     @FXML
-    private TextField quoteField;
+    private TextField groupField;
 
     @FXML
-    private TextField quoteField1;
-
-    @FXML
-    private TextField subjectField;
-
-    @FXML
-    private TextField teacherField;
+    private PasswordField passwordField;
 
     @FXML
     private Label welcomeText;
-
     PreparedStatement preparedStatement;
-
     @FXML
-    void setQuote(ActionEvent event) {
-
-    }
-
-    @FXML
-    public void updateQuote() throws SQLException {
+    public void updateQuote() throws SQLException, IOException {
         Connection connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_1920_quotes",
                 "std_1920_quotes", "passwordpassword");
 
-        String query = "UPDATE Quotes SET quote =?, teacher=?, subject=?, date=? WHERE id LIKE "+  DBviewController.currentQuoteId;
+        String query = "UPDATE Users SET login =?, password=?, study_group=? WHERE id LIKE "+  HelloController.user.getId();
         preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, quoteField.getText());
-        preparedStatement.setString(2, teacherField.getText());
-        preparedStatement.setString(3, subjectField.getText());
-        preparedStatement.setDate(4,Date.valueOf(dataField.getValue()));
+        preparedStatement.setString(1, loginField.getText());
+        preparedStatement.setString(2, passwordField.getText());
+        preparedStatement.setString(3, groupField.getText());
         preparedStatement.execute();
+
+        HelloApplication.openNewScene(addQuoteButton, "previewQuotes.fxml");
     }
 
 }
-

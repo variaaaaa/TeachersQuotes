@@ -19,7 +19,7 @@
             <TableColumn fx:id="userIDColumn" prefWidth="45.3333740234375" text="userID" />
         </columns>
       </TableView>
-      <Text layoutX="224.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quotes" wrappingWidth="178.08740234375">
+      <Text layoutX="243.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quotes" wrappingWidth="178.08740234375">
          <font>
             <Font name="Bodoni MT Condensed" size="67.0" />
          </font>
@@ -30,5 +30,6 @@
       <Button fx:id="viewMyQ" layoutX="423.0" layoutY="103.0" onAction="#viewALLQs" text="Посмотреть мои цитаты" />
       <Button fx:id="editButton" layoutX="235.0" layoutY="103.0" onAction="#editInfo" text="Редактировать" />
       <Button fx:id="BackToMenu" layoutX="442.0" layoutY="38.0" onAction="#backToMenu" text="На главное меню" />
+      <Button fx:id="settings" layoutX="55.0" layoutY="38.0" onAction="#editMySetting" text="Изменить свои данные" />
    </children>
 </AnchorPane>

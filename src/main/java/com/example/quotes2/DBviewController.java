@@ -260,6 +260,11 @@ public class DBviewController implements Initializable {
         viewMyQ.setDisable(true);
         quotesData.clear();
     }
+
+    @FXML
+    public void editMySetting() throws IOException {
+        HelloApplication.openNewScene(BackToMenu,"editMySettings.fxml");
+    }
 }
 
 
