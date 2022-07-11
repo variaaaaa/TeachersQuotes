@@ -1,5 +1,6 @@
 package com.example.quotes2;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
@@ -36,7 +37,7 @@ public class AddQuote {
     @FXML
     private Label welcomeText;
     @FXML
-    public void setQuote() throws SQLException, ClassNotFoundException {
+    public void setQuote() throws SQLException, ClassNotFoundException, IOException {
         DatabaseHandler dbHandler = new DatabaseHandler();
         int id = dbHandler.QID();
         String quote = quoteField.getText();
@@ -47,6 +48,7 @@ public class AddQuote {
 
         Quote newQuote = new Quote(id, quote, teacher, subject, date, userID);
         dbHandler.addQuote(newQuote);
+        HelloApplication.openNewScene(addQuoteButton,"previewQuotes.fxml");
     }
 }
 

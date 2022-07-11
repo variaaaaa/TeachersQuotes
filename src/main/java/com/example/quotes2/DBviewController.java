@@ -35,6 +35,8 @@ public class DBviewController implements Initializable {
 
     @FXML
     private Button addButton;
+    @FXML
+    private Button settings;
 
     @FXML
     private TableView<Quote> quotesTable;
@@ -76,7 +78,8 @@ public class DBviewController implements Initializable {
             DeleteButton.setDisable(true);
             editButton.setDisable(true);
             addButton.setDisable(true);
-            viewMyQ.setDisable(true);
+            //viewMyQ.setDisable(false);
+            settings.setDisable(true);
         }
         if (HelloController.user.getRole().equals("User")) {
             DeleteButton.setDisable(true);
@@ -239,8 +242,9 @@ public class DBviewController implements Initializable {
     public void forVerificator() throws IOException, SQLException {
         connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_1920_quotes",
                 "std_1920_quotes", "passwordpassword");
+        String group = HelloController.user.getStudy_group();
 
-        query = "SELECT * FROM Quotes WHERE userID IN (SELECT id FROM Users WHERE study_group = "+ HelloController.user.getStudy_group() +")";
+        query = "SELECT * FROM Quotes WHERE userID IN (SELECT id FROM Users WHERE study_group =' "+ group + "')";
         preparedStatement = connection.prepareStatement(query);
         ResultSet result = preparedStatement.executeQuery();
         while (result.next()) {

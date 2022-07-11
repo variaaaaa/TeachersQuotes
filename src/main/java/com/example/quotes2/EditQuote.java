@@ -3,14 +3,13 @@ package com.example.quotes2;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class editQuote {
+public class EditQuote {
 
     @FXML
     private ResourceBundle resources;

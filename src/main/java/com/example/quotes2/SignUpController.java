@@ -66,8 +66,6 @@ public class SignUpController {
 
     @FXML
     public void backToMenu() throws IOException {
-        HelloApplication.openNewScene(BackToMenu,"hello-view.fxml");
+        HelloApplication.openNewScene(BackToMenu, "hello-view.fxml");
     }
-
-
 }

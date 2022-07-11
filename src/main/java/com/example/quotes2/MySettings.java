@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class mySettings {
+public class MySettings {
 
     @FXML
     private ResourceBundle resources;
@@ -20,6 +20,9 @@ public class mySettings {
 
     @FXML
     private Button addQuoteButton;
+
+    @FXML
+    private Button backButton;
 
     @FXML
     private TextField loginField;
@@ -46,6 +49,11 @@ public class mySettings {
         preparedStatement.execute();
 
         HelloApplication.openNewScene(addQuoteButton, "previewQuotes.fxml");
+    }
+
+    @FXML
+    public void goBack() throws IOException {
+        HelloApplication.openNewScene(backButton,"previewQuotes.fxml");
     }
 
 }
