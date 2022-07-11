@@ -1,10 +1,10 @@
 package com.example.quotes2;
 
 import java.net.URL;
-import java.sql.Date;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ResourceBundle;
 
+import com.mysql.cj.Query;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -37,6 +37,7 @@ public class AddQuote {
 
     @FXML
     private Label welcomeText;
+    PreparedStatement preparedStatement = null;
 
 
     @FXML
@@ -52,12 +53,6 @@ public class AddQuote {
         Quote newQuote = new Quote(id, quote, teacher, subject, date, userID);
         dbHandler.addQuote(newQuote);
     }
-
-    @FXML
-    void initialize() {
-
-    }
-
 }
 
 

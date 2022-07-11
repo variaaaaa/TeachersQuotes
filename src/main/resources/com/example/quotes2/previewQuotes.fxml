@@ -16,7 +16,7 @@
             <TableColumn fx:id="teacherColumn" prefWidth="145.33331298828125" text="teacher" />
             <TableColumn fx:id="subjectColumn" prefWidth="102.66668701171875" text="subject" />
             <TableColumn fx:id="dateColumn" prefWidth="90.0" text="date" />
-            <TableColumn fx:id="iduColumn" prefWidth="45.3333740234375" text="id_user" />
+            <TableColumn fx:id="userIDColumn" prefWidth="45.3333740234375" text="userID" />
         </columns>
       </TableView>
       <Text layoutX="224.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quotes" wrappingWidth="178.08740234375">

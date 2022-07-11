@@ -25,7 +25,7 @@
          </Label>
          <PasswordField fx:id="passwordField" layoutX="30.0" layoutY="175.0" prefHeight="25.0" prefWidth="240.0" promptText="Пароль" />
          <Button fx:id="authSignInButton" layoutX="125.0" layoutY="233.0" onAction="#setAuthSignInButton" text="Войти" />
-         <Button fx:id="guestButton" layoutX="28.0" layoutY="360.0" onAction="#setGuestButton" text="Войти как гость" />
+         <Button fx:id="guestButton" layoutX="28.0" layoutY="360.0" onAction="#asGuest" text="Войти как гость" />
       </children>
    </AnchorPane>
 </VBox>

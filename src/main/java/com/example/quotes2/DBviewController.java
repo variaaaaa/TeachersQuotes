@@ -2,12 +2,14 @@ package com.example.quotes2;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -49,7 +51,7 @@ public class DBviewController implements Initializable {
     private TableColumn<Quote, Date> dateColumn;
 
     @FXML
-    private TableColumn<Quote, Integer> iduColumn;
+    private TableColumn<Quote, Integer> userIDColumn;
 
     @FXML
     private Button viewMyQ;
@@ -68,6 +70,12 @@ public class DBviewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (HelloController.user.getRole().equals("Guest")) {
+            DeleteButton.setDisable(true);
+            editButton.setDisable(true);
+            addButton.setDisable(true);
+            viewMyQ.setDisable(true);
+        }
         try {
             loadData();
         } catch (SQLException | ClassNotFoundException e) {
@@ -77,43 +85,7 @@ public class DBviewController implements Initializable {
 
     @FXML
     void initialize() throws SQLException, ClassNotFoundException {
-        try {
-            connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_1920_quotes",
-                    "std_1920_quotes", "passwordpassword");
-
-
-            if (HelloController.user.getRole().equals("User")) {
-                query = "SELECT * FROM Quotes WHERE id_user = ?";
-                preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setInt(1, HelloController.user.getId());
-            } else if (HelloController.user.getRole().equals("Verificator")) {
-                query = "SELECT * FROM Quotes WHERE id_user IN (SELECT id FROM users WHERE study_group = ?)";
-                preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, HelloController.user.getStudy_group());
-            } else if (HelloController.user.getRole().equals("Superuser")) {
-                query = "SELECT * FROM quotes_teachers";
-                preparedStatement = connection.prepareStatement(query);
-            }
-
-            ResultSet result = preparedStatement.executeQuery();
-
-            while (result.next()) {
-                String quote = result.getString("quote");
-                String teacher = result.getString("teacher");
-                String subject = result.getString("subject");
-                Date date = result.getDate("date");
-
-               quotesTable.getItems().addAll(new Quote(currentQuoteId, quote, teacher, subject, date, currentQuoteUserId));
-            }
-
-            connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        quoteColumn.setCellValueFactory(new PropertyValueFactory<>("quote"));
-        teacherColumn.setCellValueFactory(new PropertyValueFactory<>("teacher"));
-        subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        loadData();
     }
 
     public void loadData() throws SQLException, ClassNotFoundException {
@@ -135,11 +107,6 @@ public class DBviewController implements Initializable {
         HelloApplication.openNewScene("AddQuote.fxml");
     }
 
-    @FXML
-    private void DeleteQuote() throws IOException {
-        HelloApplication.openNewScene("DeleteQuote.fxml");
-    }
-
     private void updatingInfo() throws SQLException {
         query = "SELECT * FROM `Quotes`";
         preparedStatement = connection.prepareStatement(query);
@@ -152,38 +119,70 @@ public class DBviewController implements Initializable {
                     resultSet.getString("subject"),
                     resultSet.getDate("date"),
                     resultSet.getInt(6)));
-            idColumn.setCellValueFactory(new PropertyValueFactory<>("quote"));
+            idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
             quoteColumn.setCellValueFactory(new PropertyValueFactory<>("quote"));
             teacherColumn.setCellValueFactory(new PropertyValueFactory<>("teacher"));
             subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
             dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-            iduColumn.setCellValueFactory(new PropertyValueFactory<>("id_user"));
+            userIDColumn.setCellValueFactory(new PropertyValueFactory<>("userID"));
 
             quotesTable.setItems(quotesData);
         }
     }
 
     @FXML
-    private void viewOnlyMine() {
-        if (HelloController.user.getRole().equals("User")) {
-            addButton.setDisable(false);
-            DeleteButton.setDisable(false);
-            editButton.setDisable(false);
-            quotesTable.setOnMousePressed(event -> {
-                if ((HelloController.user.getId() == quotesTable.getSelectionModel().getSelectedItem().id)) {
-                    DeleteButton.setDisable(false);
-                    editButton.setDisable(false);
-                } else {
-                    DeleteButton.setDisable(true);
-                    editButton.setDisable(true);
+    private void viewOnlyMine() throws SQLException {
+//        if (HelloController.user.getRole().equals("User")) {
+//            addButton.setDisable(false);
+//            DeleteButton.setDisable(false);
+//            editButton.setDisable(false);
+//            quotesTable.setOnMousePressed(event -> {
+//                if ((HelloController.user.getId() == quotesTable.getSelectionModel().getSelectedItem().id)) {
+//                    DeleteButton.setDisable(false);
+//                    editButton.setDisable(false);
+//                } else {
+//                    DeleteButton.setDisable(true);
+//                    editButton.setDisable(true);
+//
+//                }
+//            });
+//        }
 
-                }
-            });
+        connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_1920_quotes",
+                "std_1920_quotes", "passwordpassword");
+
+        if (HelloController.user.getRole().equals("User")) {
+            query = "SELECT * FROM Quotes WHERE id_user = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, HelloController.user.getId());
+        } else if (HelloController.user.getRole().equals("Verificator")) {
+            query = "SELECT * FROM Quotes WHERE id_user IN (SELECT id FROM users WHERE study_group = ?)";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, HelloController.user.getStudy_group());
+        } else if (HelloController.user.getRole().equals("Superuser")) {
+            query = "SELECT * FROM quotes_teachers";
+            preparedStatement = connection.prepareStatement(query);
         }
+        ResultSet result = preparedStatement.executeQuery();
+        while (result.next()) {
+            String quote = result.getString("quote");
+            String teacher = result.getString("teacher");
+            String subject = result.getString("subject");
+            Date date = result.getDate("date");
+
+            quotesTable.getItems().addAll(new Quote(currentQuoteId, quote, teacher, subject, date, currentQuoteUserId));
+        }
+
+        connection.close();
+
+        quoteColumn.setCellValueFactory(new PropertyValueFactory<>("quote"));
+        teacherColumn.setCellValueFactory(new PropertyValueFactory<>("teacher"));
+        subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
     }
 
-    @FXML // -- Удалить выделенный элемент
-    public void deleteInfo() throws SQLException, ClassNotFoundException {
+    @FXML
+    public void deleteInfo() throws SQLException {
         connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_1920_quotes",
                 "std_1920_quotes", "passwordpassword");
 

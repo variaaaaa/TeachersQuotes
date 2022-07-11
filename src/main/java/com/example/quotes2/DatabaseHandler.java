@@ -86,7 +86,7 @@ public class DatabaseHandler { //database work
 
     public void addQuote(Quote quote) throws SQLException, ClassNotFoundException {
         makeConnection();
-        String insert = "INSERT INTO Quotes(id, quote,teacher,subject,date) VALUES(?,?,?,?,?) ";
+        String insert = "INSERT INTO Quotes(id, quote,teacher,subject,date, userID) VALUES(?,?,?,?,?,?) ";
         PreparedStatement prSt;
         prSt = connection.prepareStatement(insert);
 //        prSt.executeQuery(insert);
@@ -95,6 +95,7 @@ public class DatabaseHandler { //database work
         prSt.setString(3, quote.getTeacher());
         prSt.setString(4, quote.getSubject());
         prSt.setString(5, String.valueOf(quote.getDate()));
+        prSt.setInt(6,HelloController.user.getId());
         prSt.executeUpdate();
     }
     public ResultSet getUser(User user) throws SQLException, ClassNotFoundException{

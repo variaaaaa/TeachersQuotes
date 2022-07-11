@@ -61,11 +61,6 @@ public class HelloController {
         HelloApplication.openNewScene("signup.fxml");
     }
 
-    @FXML
-    void setGuestButton() throws IOException {
-        HelloApplication.openNewScene("forGuest.fxml");
-    }
-
 
     private void loginUser(String loginText, String loginPassword) throws SQLException, ClassNotFoundException, IOException {
         DatabaseHandler dbHandler = new DatabaseHandler();
@@ -84,6 +79,12 @@ public class HelloController {
             authSignInButton.getScene().getWindow().hide();
             HelloApplication.openNewScene("previewQuotes.fxml");
         }
+    }
+
+    @FXML
+    public void asGuest() throws IOException {
+        user.setRole("Guest");
+        HelloApplication.openNewScene("previewQuotes.fxml");
     }
 
 }
