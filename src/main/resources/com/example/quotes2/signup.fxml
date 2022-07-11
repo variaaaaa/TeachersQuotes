@@ -26,6 +26,7 @@
             <PasswordField fx:id="passwordsuField" layoutX="28.0" layoutY="149.0" prefHeight="25.0" prefWidth="240.0" promptText="Пароль" />
          <TextField fx:id="role" layoutX="28.0" layoutY="245.0" prefHeight="25.0" prefWidth="240.0" promptText="Роль" />
          <TextField fx:id="studygroup" layoutX="28.0" layoutY="200.0" prefHeight="25.0" prefWidth="240.0" promptText="Группа" />
+         <Button fx:id="BackToMenu" layoutX="149.0" layoutY="360.0" onAction="#backToMenu" text="На главное меню" />
         </children>
     </AnchorPane>
 </VBox>

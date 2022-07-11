@@ -14,6 +14,15 @@ public class DatabaseHandler { //database work
         }
     }
 
+    public int getQId() {
+        try {
+            return QID();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     public void makeConnection(){
         try {
             connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_1920_quotes",
@@ -58,6 +67,7 @@ public class DatabaseHandler { //database work
             id++;
         }
         id++;
+        System.out.println("id is " + id);
         return id;
     }
 

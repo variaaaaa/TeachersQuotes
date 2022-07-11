@@ -1,5 +1,6 @@
 package com.example.quotes2;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -26,6 +27,9 @@ public class SignUpController {
 
     @FXML
     private Button signUpButton;
+
+    @FXML
+    private Button BackToMenu;
 
     @FXML
     private TextField signupField;
@@ -56,8 +60,15 @@ public class SignUpController {
         String study_group = studygroup.getText();
         int id = dbHandler.MyID();
 
-        User user = new User(id, login,password,role, study_group);
+        User user = new User(id, login, password, role, study_group);
         dbHandler.signUpUser(user);
     }
+
+    @FXML
+    public void backToMenu() throws IOException {
+        BackToMenu.getScene().getWindow().hide();
+        HelloApplication.openNewScene("hello-view.fxml");
+    }
+
 
 }

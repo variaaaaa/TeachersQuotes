@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quotes2.AddQuote">
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quotes2.DBviewController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -21,7 +21,7 @@
                <Font name="Book Antiqua" size="24.0" />
             </font>
          </Label>
-         <Button fx:id="addQuoteButton" layoutX="118.0" layoutY="230.0" onAction="#setQuote" text="Удалить" />
+         <Button fx:id="addQuoteButton" layoutX="118.0" layoutY="230.0" onAction="#deleteInfo" text="Удалить" />
       </children>
    </AnchorPane>
 </VBox>

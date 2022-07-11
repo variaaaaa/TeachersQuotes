@@ -50,8 +50,6 @@ public class AddQuote {
 
         Quote newQuote = new Quote(id, quote, teacher, subject, date);
         dbHandler.addQuote(newQuote);
-        User user = new User();
-
     }
 
     @FXML

@@ -81,17 +81,9 @@ public class HelloController {
             user.setId(result.getInt(1));
             user.setStudy_group(result.getString(4));
             user.setRole(result.getString(5));
-
-            if (user.getRole().equals("superUser")) {
-                authSignInButton.getScene().getWindow().hide();
-                HelloApplication.openNewScene("forSuperuser.fxml");
-            } else if (user.getRole().equals("User")) {
-                authSignInButton.getScene().getWindow().hide();
-                HelloApplication.openNewScene("forUser.fxml");
-            } else if (user.getRole().equals("verificator")) {
-                authSignInButton.getScene().getWindow().hide();
-                HelloApplication.openNewScene("forVerificator.fxml");
-            }
+            authSignInButton.getScene().getWindow().hide();
+            HelloApplication.openNewScene("previewQuotes.fxml");
         }
     }
+
 }

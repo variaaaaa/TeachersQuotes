@@ -1,6 +1,10 @@
 package com.example.quotes2;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,15 +28,5 @@ public class DeleteQuote {
 
     @FXML
     private Label welcomeText;
-
-    @FXML
-    void deleteQuote(ActionEvent event) {
-
-    }
-
-    @FXML
-    void initialize() {
-
-    }
 
 }
