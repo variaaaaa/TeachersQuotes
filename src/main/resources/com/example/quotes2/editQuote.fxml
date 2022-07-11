@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quotes2.AddQuote">
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quotes2.editQuote">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -22,11 +22,10 @@
                <Font name="Book Antiqua" size="24.0" />
             </font>
          </Label>
-         <Button fx:id="addQuoteButton" layoutX="123.0" layoutY="316.0" onAction="#setQuote" text="Изменить" />
+         <Button fx:id="addQuoteButton" layoutX="123.0" layoutY="316.0" onAction="#updateQuote" text="Изменить" />
          <TextField fx:id="teacherField" layoutX="28.0" layoutY="174.0" prefHeight="25.0" prefWidth="240.0" promptText="Преподаватель" />
          <TextField fx:id="subjectField" layoutX="28.0" layoutY="219.0" prefHeight="25.0" prefWidth="240.0" promptText="Предмет" />
          <DatePicker fx:id="dataField" layoutX="27.0" layoutY="270.0" prefHeight="25.0" prefWidth="240.0" promptText="Дата" />
-         <TextField fx:id="quoteField1" layoutX="30.0" layoutY="83.0" prefHeight="25.0" prefWidth="240.0" promptText="Номер цитаты" />
       </children>
    </AnchorPane>
 </VBox>

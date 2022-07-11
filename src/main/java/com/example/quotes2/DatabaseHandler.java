@@ -23,7 +23,7 @@ public class DatabaseHandler { //database work
     }
 
 
-    public void makeConnection(){
+    public static void makeConnection(){
         try {
             connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_1920_quotes",
                     "std_1920_quotes", "passwordpassword");

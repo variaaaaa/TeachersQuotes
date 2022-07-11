@@ -21,6 +21,14 @@ public class Quote {
         this.subject = subject;
     }
 
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
     public Quote(int id, String quote, String teacher, String subject, Date date, int userID) {
         this.id = id;
         this.quote = quote;

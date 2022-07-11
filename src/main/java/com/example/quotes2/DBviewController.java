@@ -4,12 +4,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -107,6 +111,17 @@ public class DBviewController implements Initializable {
         HelloApplication.openNewScene("AddQuote.fxml");
     }
 
+    @FXML
+    private void editInfo() throws IOException {
+        currentQuoteId = quotesTable.getSelectionModel().getSelectedItem().id;
+        currentQuoteUserId = quotesTable.getSelectionModel().getSelectedItem().userID;
+        Parent parent = FXMLLoader.load(getClass().getResource("editQuote.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
+
     private void updatingInfo() throws SQLException {
         query = "SELECT * FROM `Quotes`";
         preparedStatement = connection.prepareStatement(query);
@@ -199,6 +214,7 @@ public class DBviewController implements Initializable {
         BackToMenu.getScene().getWindow().hide();
         HelloApplication.openNewScene("hello-view.fxml");
     }
+
 }
 
 

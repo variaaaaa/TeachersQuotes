@@ -28,7 +28,7 @@
       <Button fx:id="addButton" layoutX="153.0" layoutY="103.0" onAction="#AddQuote" text="Добавить" />
       <Button fx:id="DeleteButton" layoutX="342.0" layoutY="103.0" onAction="#deleteInfo" text="Удалить" />
       <Button fx:id="viewMyQ" layoutX="423.0" layoutY="103.0" onAction="#viewOnlyMine" text="Посмотреть мои цитаты" />
-      <Button fx:id="editButton" layoutX="235.0" layoutY="103.0" onAction="#refreshTable" text="Редактировать" />
+      <Button fx:id="editButton" layoutX="235.0" layoutY="103.0" onAction="#editInfo" text="Редактировать" />
       <Button fx:id="BackToMenu" layoutX="442.0" layoutY="38.0" onAction="#backToMenu" text="На главное меню" />
    </children>
 </AnchorPane>
