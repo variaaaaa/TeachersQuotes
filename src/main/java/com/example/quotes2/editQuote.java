@@ -42,11 +42,6 @@ public class editQuote {
     PreparedStatement preparedStatement;
 
     @FXML
-    void setQuote(ActionEvent event) {
-
-    }
-
-    @FXML
     public void updateQuote() throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_1920_quotes",
                 "std_1920_quotes", "passwordpassword");
@@ -59,6 +54,5 @@ public class editQuote {
         preparedStatement.setDate(4,Date.valueOf(dataField.getValue()));
         preparedStatement.execute();
     }
-
 }
 

@@ -1,8 +1,5 @@
 package com.example.quotes2;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 public class User {
 
     private String login,password,role, study_group;

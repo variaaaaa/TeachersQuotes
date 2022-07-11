@@ -25,10 +25,9 @@
          </font>
       </Text>
       <Button fx:id="Update" layoutX="56.0" layoutY="103.0" onAction="#refreshTable" text="Обновить" />
-      <Button fx:id="addButton" layoutX="153.0" layoutY="103.0" onAction="#AddQuote" text="Добавить" />
-      <Button fx:id="DeleteButton" layoutX="342.0" layoutY="103.0" onAction="#deleteInfo" text="Удалить" />
-      <Button fx:id="viewMyQ" layoutX="423.0" layoutY="103.0" onAction="#viewALLQs" text="Посмотреть мои цитаты" />
-      <Button fx:id="editButton" layoutX="235.0" layoutY="103.0" onAction="#editInfo" text="Редактировать" />
+      <Button fx:id="addButton" layoutX="188.0" layoutY="103.0" onAction="#AddQuote" text="Добавить" />
+      <Button fx:id="DeleteButton" layoutX="480.0" layoutY="103.0" onAction="#deleteInfo" text="Удалить" />
+      <Button fx:id="editButton" layoutX="332.0" layoutY="103.0" onAction="#editInfo" text="Редактировать" />
       <Button fx:id="BackToMenu" layoutX="442.0" layoutY="38.0" onAction="#backToMenu" text="На главное меню" />
       <Button fx:id="settings" layoutX="55.0" layoutY="38.0" onAction="#editMySetting" text="Изменить свои данные" />
    </children>

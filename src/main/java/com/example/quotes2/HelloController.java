@@ -68,9 +68,6 @@ public class HelloController {
         user.setLogin(loginText);
         user.setPassword(loginPassword);
         ResultSet result = dbHandler.getUser(user);
-        dbHandler.getAllQuotes();
-        dbHandler.getAllUsers();
-
         while (result.next()) {
             this.user = user;
             user.setId(result.getInt(1));
@@ -86,5 +83,4 @@ public class HelloController {
         user.setRole("Guest");
         HelloApplication.openNewScene(guestButton,"previewQuotes.fxml");
     }
-
 }

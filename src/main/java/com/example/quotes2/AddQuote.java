@@ -4,8 +4,6 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-import com.mysql.cj.Query;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -37,9 +35,6 @@ public class AddQuote {
 
     @FXML
     private Label welcomeText;
-    PreparedStatement preparedStatement = null;
-
-
     @FXML
     public void setQuote() throws SQLException, ClassNotFoundException {
         DatabaseHandler dbHandler = new DatabaseHandler();

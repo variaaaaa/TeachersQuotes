@@ -65,8 +65,6 @@ public class DBviewController implements Initializable {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
-    Quote quote = null;
-    DatabaseHandler db = new DatabaseHandler();
 
     public static int currentQuoteId;
     public static int currentQuoteUserId;
@@ -102,20 +100,11 @@ public class DBviewController implements Initializable {
             editButton.setDisable(true);
         }
         if (HelloController.user.getRole().equals("Verificator")) {
-            DeleteButton.setDisable(true);
-            editButton.setDisable(true);
-            quotesTable.setOnMousePressed(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    if ((HelloController.user.getId() == quotesTable.getSelectionModel().getSelectedItem().userID)) {
-                        DeleteButton.setDisable(false);
-                        editButton.setDisable(false);
-                    } else {
-                        DeleteButton.setDisable(true);
-                        editButton.setDisable(true);
-                    }
-                }
-            });
+            try {
+                forVerificator();
+            } catch (IOException | SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
         try {
             loadData();
@@ -124,10 +113,6 @@ public class DBviewController implements Initializable {
         }
     }
 
-    @FXML
-    void initialize() throws SQLException, ClassNotFoundException {
-
-    }
 
     public void loadData() throws SQLException, ClassNotFoundException {
         connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_1920_quotes",
@@ -145,7 +130,7 @@ public class DBviewController implements Initializable {
 
     @FXML
     private void AddQuote() throws IOException {
-        HelloApplication.openNewScene(addButton,"AddQuote.fxml");
+        HelloApplication.openNewScene(addButton, "AddQuote.fxml");
     }
 
     @FXML
@@ -184,22 +169,6 @@ public class DBviewController implements Initializable {
 
     @FXML
     private void viewOnlyMine() throws SQLException {
-//        if (HelloController.user.getRole().equals("User")) {
-//            addButton.setDisable(false);
-//            DeleteButton.setDisable(false);
-//            editButton.setDisable(false);
-//            quotesTable.setOnMousePressed(event -> {
-//                if ((HelloController.user.getId() == quotesTable.getSelectionModel().getSelectedItem().id)) {
-//                    DeleteButton.setDisable(false);
-//                    editButton.setDisable(false);
-//                } else {
-//                    DeleteButton.setDisable(true);
-//                    editButton.setDisable(true);
-//
-//                }
-//            });
-//        }
-
         connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_1920_quotes",
                 "std_1920_quotes", "passwordpassword");
 
@@ -207,12 +176,14 @@ public class DBviewController implements Initializable {
             query = "SELECT * FROM Quotes WHERE id_user = ?";
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, HelloController.user.getId());
-        } else if (HelloController.user.getRole().equals("Verificator")) {
-            query = "SELECT * FROM Quotes WHERE id_user IN (SELECT id FROM users WHERE study_group = ?)";
+        }
+        if (HelloController.user.getRole().equals("Verificator")) {
+            query = "SELECT * FROM Quotes WHERE userID IN (SELECT id FROM Users WHERE study_group = ?)";
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, HelloController.user.getStudy_group());
-        } else if (HelloController.user.getRole().equals("Superuser")) {
-            query = "SELECT * FROM quotes_teachers";
+        }
+        if (HelloController.user.getRole().equals("Superuser")) {
+            query = "SELECT * FROM Quotes";
             preparedStatement = connection.prepareStatement(query);
         }
         ResultSet result = preparedStatement.executeQuery();
@@ -221,12 +192,10 @@ public class DBviewController implements Initializable {
             String teacher = result.getString("teacher");
             String subject = result.getString("subject");
             Date date = result.getDate("date");
-
             quotesTable.getItems().addAll(new Quote(currentQuoteId, quote, teacher, subject, date, currentQuoteUserId));
         }
 
         connection.close();
-
         quoteColumn.setCellValueFactory(new PropertyValueFactory<>("quote"));
         teacherColumn.setCellValueFactory(new PropertyValueFactory<>("teacher"));
         subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
@@ -248,7 +217,7 @@ public class DBviewController implements Initializable {
 
     @FXML
     public void backToMenu() throws IOException {
-        HelloApplication.openNewScene(BackToMenu,"hello-view.fxml");
+        HelloApplication.openNewScene(BackToMenu, "hello-view.fxml");
     }
 
     @FXML
@@ -263,7 +232,32 @@ public class DBviewController implements Initializable {
 
     @FXML
     public void editMySetting() throws IOException {
-        HelloApplication.openNewScene(BackToMenu,"editMySettings.fxml");
+        HelloApplication.openNewScene(BackToMenu, "editMySettings.fxml");
+    }
+
+    @FXML
+    public void forVerificator() throws IOException, SQLException {
+        connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_1920_quotes",
+                "std_1920_quotes", "passwordpassword");
+
+        query = "SELECT * FROM Quotes WHERE userID IN (SELECT id FROM Users WHERE study_group = "+ HelloController.user.getStudy_group() +")";
+        preparedStatement = connection.prepareStatement(query);
+        ResultSet result = preparedStatement.executeQuery();
+        while (result.next()) {
+            quotesData.add(new Quote(resultSet.getInt(1),
+                    result.getString("quote"),
+                    result.getString("teacher"),
+                    result.getString("subject"),
+                    result.getDate("date"),
+                    result.getInt(6)));
+            idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+            quoteColumn.setCellValueFactory(new PropertyValueFactory<>("quote"));
+            teacherColumn.setCellValueFactory(new PropertyValueFactory<>("teacher"));
+            subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
+            dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+            userIDColumn.setCellValueFactory(new PropertyValueFactory<>("userID"));
+            quotesTable.setItems(quotesData);
+        }
     }
 }
 

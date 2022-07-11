@@ -14,15 +14,6 @@ public class DatabaseHandler { //database work
         }
     }
 
-    public int getQId() {
-        try {
-            return QID();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
     public static void makeConnection(){
         try {
             connection = DriverManager.getConnection("jdbc:mysql://std-mysql.ist.mospolytech.ru:3306/std_1920_quotes",
@@ -76,7 +67,6 @@ public class DatabaseHandler { //database work
         String insert = "INSERT INTO Users(id, login,password,role) VALUES(?,?,?,?) ";
         PreparedStatement prSt;
         prSt = connection.prepareStatement(insert);
-//        prSt.executeQuery(insert);
         prSt.setString(1, Integer.toString(this.MyID()));
         prSt.setString(2, user.getLogin());
         prSt.setString(3, user.getPassword());
@@ -89,7 +79,6 @@ public class DatabaseHandler { //database work
         String insert = "INSERT INTO Quotes(id, quote,teacher,subject,date, userID) VALUES(?,?,?,?,?,?) ";
         PreparedStatement prSt;
         prSt = connection.prepareStatement(insert);
-//        prSt.executeQuery(insert);
         prSt.setString(1, Integer.toString(this.QID()));
         prSt.setString(2, quote.getQuote());
         prSt.setString(3, quote.getTeacher());
@@ -98,6 +87,7 @@ public class DatabaseHandler { //database work
         prSt.setInt(6,HelloController.user.getId());
         prSt.executeUpdate();
     }
+
     public ResultSet getUser(User user) throws SQLException, ClassNotFoundException{
         makeConnection();
         ResultSet resSet;
@@ -108,42 +98,5 @@ public class DatabaseHandler { //database work
         prSt.setString(2, user.getPassword());
         resSet = prSt.executeQuery();
         return resSet;
-    }
-
-
-    public QuotesDB getAllQuotes() throws SQLException, ClassNotFoundException {
-        makeConnection();
-        String quotes = "SELECT * FROM Quotes";
-        PreparedStatement statement = connection.prepareStatement(quotes);
-        ResultSet allquotes = statement.executeQuery(quotes);
-        QuotesDB database = new QuotesDB();
-        while(allquotes.next()) {
-            Quote q = new Quote();
-            q.setId(allquotes.getInt(1));
-            q.setQuote(allquotes.getString(2));
-            q.setTeacher(allquotes.getString(3));
-            q.setSubject(allquotes.getString(4));
-            q.setDate(allquotes.getDate(5));
-            database.addQuote(q);
-        }
-        return database;
-    }
-
-    public void getAllUsers() throws SQLException {
-        makeConnection();
-        Users users = new Users();
-        String query = "SELECT * FROM Users";
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(query);
-        while(resultSet.next()){
-            User user = new User();
-            user.setId(resultSet.getInt(1));
-            user.setLogin(resultSet.getString(2));
-            user.setPassword(resultSet.getString(3));
-            user.setRole(resultSet.getString(4));
-            users.addUser(user);
-            users.getUsers();
-        }
-        closeConnection();
     }
 }
