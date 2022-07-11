@@ -20,10 +20,10 @@
                     <Font name="Book Antiqua" size="24.0" />
                 </font>
             </Label>
-         <Button fx:id="Add" layoutX="67.0" layoutY="251.0" onAction="#addInfo" prefHeight="25.0" prefWidth="165.0" text="Добавить цитату" />
+         <Button fx:id="Add" layoutX="67.0" layoutY="251.0" onAction="#addQuote" prefHeight="25.0" prefWidth="165.0" text="Добавить цитату" />
          <Button fx:id="Delete" layoutX="67.0" layoutY="319.0" onAction="#deleteInfo" prefHeight="25.0" prefWidth="165.0" text="Удалить цитату" />
-         <Button fx:id="lookAll" layoutX="67.0" layoutY="94.0" onAction="#addInfo" prefHeight="25.0" prefWidth="165.0" text="Посмотреть все цитаты" />
-         <Button fx:id="lookMine" layoutX="67.0" layoutY="153.0" onAction="#addInfo" prefHeight="25.0" prefWidth="165.0" text="Посмотреть мои цитаты" />
+         <Button fx:id="lookAll" layoutX="67.0" layoutY="94.0" onAction="#viewALlQs" prefHeight="25.0" prefWidth="165.0" text="Посмотреть все цитаты" />
+         <Button fx:id="lookMine" layoutX="67.0" layoutY="153.0" onAction="#viewALlQs" prefHeight="25.0" prefWidth="165.0" text="Посмотреть мои цитаты" />
         </children>
     </AnchorPane>
 </VBox>

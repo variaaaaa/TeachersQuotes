@@ -7,14 +7,10 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class HelloController {
 
@@ -42,79 +38,60 @@ public class HelloController {
     @FXML
     private Label welcomeText;
 
+    public static User user = new User();
+
     @FXML
     void setAuthSignInButton() {
         String loginText = loginField.getText().trim();
         String loginPassword = passwordField.getText().trim();
 
-        if (!loginText.equals("") && !loginPassword.equals("")){
+        if (!loginText.equals("") && !loginPassword.equals("")) {
             try {
-                loginUser(loginText,loginPassword);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            } catch (ClassNotFoundException e) {
+                loginUser(loginText, loginPassword);
+            } catch (SQLException | ClassNotFoundException | IOException e) {
                 throw new RuntimeException(e);
             }
-        }
-        else{
+        } else {
             System.out.println("Error. ");
         }
     }
 
     @FXML
-    void setLoginsignUpButton(){
-        openNewScene("signup.fxml");
+    void setLoginsignUpButton() throws IOException {
+        HelloApplication.openNewScene("signup.fxml");
     }
 
     @FXML
-    void setGuestButton() {
-        openNewScene("forGuest.fxml");
+    void setGuestButton() throws IOException {
+        HelloApplication.openNewScene("forGuest.fxml");
     }
 
 
-    private void loginUser(String loginText, String loginPassword) throws SQLException, ClassNotFoundException {
+    private void loginUser(String loginText, String loginPassword) throws SQLException, ClassNotFoundException, IOException {
         DatabaseHandler dbHandler = new DatabaseHandler();
         User user = new User();
         user.setLogin(loginText);
         user.setPassword(loginPassword);
-       // user.setRole(role);
         ResultSet result = dbHandler.getUser(user);
         dbHandler.getAllQuotes();
         dbHandler.getAllUsers();
 
-        int counter = 0;
-        while (result.next()){
-            counter++;
-        }
-        if (counter >= 1){
-            openNewScene("forUser.fxml");
-            if (user.getRole() == "user"){
-                openNewScene("forUser.fxml");
-            }
-            if (user.getRole() == "superUser"){
-                openNewScene("forSuperuser.fxml");
-            }
-            if (user.getRole() == "verificator"){
-                openNewScene("forVerificator.fxml");
-            }
+        while (result.next()) {
+            this.user = user;
+            user.setId(result.getInt(1));
+            user.setStudy_group(result.getString(4));
+            user.setRole(result.getString(5));
 
+            if (user.getRole().equals("superUser")) {
+                authSignInButton.getScene().getWindow().hide();
+                HelloApplication.openNewScene("forSuperuser.fxml");
+            } else if (user.getRole().equals("User")) {
+                authSignInButton.getScene().getWindow().hide();
+                HelloApplication.openNewScene("forUser.fxml");
+            } else if (user.getRole().equals("verificator")) {
+                authSignInButton.getScene().getWindow().hide();
+                HelloApplication.openNewScene("forVerificator.fxml");
+            }
         }
-    }
-
-    public void openNewScene(String window){
-        loginsignUpButton.getScene().getWindow().hide();
-        FXMLLoader loader = new FXMLLoader();
-        System.out.println(getClass().getResource(window));
-        loader.setLocation(getClass().getResource(window));
-
-        try{
-            loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        Parent root = loader.getRoot();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.showAndWait();
     }
 }

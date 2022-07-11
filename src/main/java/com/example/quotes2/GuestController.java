@@ -29,8 +29,6 @@ public class GuestController {
     public void viewALlQs() {
         //lookAll.getScene().getWindow().hide();
         FXMLLoader loader = new FXMLLoader();
-//        lookAll.getScene().getWindow().hide();
-        //System.out.println(getClass().getResource("previewQuotes.fxml"));
         loader.setLocation(getClass().getResource("previewQuotes.fxml"));
         try{
             loader.load();

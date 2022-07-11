@@ -48,6 +48,19 @@ public class DatabaseHandler { //database work
         return id;
     }
 
+    public int QID() throws SQLException {
+        int id = 0;
+        makeConnection();
+        statement = connection.createStatement();
+        String query = "SELECT id FROM Quotes";
+        ResultSet findid = statement.executeQuery(query);
+        while (findid.next()){
+            id++;
+        }
+        id++;
+        return id;
+    }
+
     public void signUpUser(User user) throws SQLException, ClassNotFoundException {
         makeConnection();
         String insert = "INSERT INTO Users(id, login,password,role) VALUES(?,?,?,?) ";
@@ -61,34 +74,31 @@ public class DatabaseHandler { //database work
         prSt.executeUpdate();
     }
 
+    public void addQuote(Quote quote) throws SQLException, ClassNotFoundException {
+        makeConnection();
+        String insert = "INSERT INTO Quotes(id, quote,teacher,subject,date) VALUES(?,?,?,?,?) ";
+        PreparedStatement prSt;
+        prSt = connection.prepareStatement(insert);
+//        prSt.executeQuery(insert);
+        prSt.setString(1, Integer.toString(this.QID()));
+        prSt.setString(2, quote.getQuote());
+        prSt.setString(3, quote.getTeacher());
+        prSt.setString(4, quote.getSubject());
+        prSt.setString(5, String.valueOf(quote.getDate()));
+        prSt.executeUpdate();
+    }
     public ResultSet getUser(User user) throws SQLException, ClassNotFoundException{
         makeConnection();
-        ResultSet resSet = null;
-
+        ResultSet resSet;
         String select = "SELECT * FROM Users WHERE login =? AND password =?";
-
         PreparedStatement prSt;
         prSt = connection.prepareStatement(select);
         prSt.setString(1, user.getLogin());
         prSt.setString(2, user.getPassword());
         resSet = prSt.executeQuery();
-
         return resSet;
-
     }
 
-    public String getUserRole(User user) throws SQLException, ClassNotFoundException{
-        makeConnection();
-        ResultSet resSet = null;
-
-        String select = "SELECT role FROM Users WHERE login =? AND password =?";
-
-        PreparedStatement prSt;
-        prSt = connection.prepareStatement(select);
-        prSt.setString(-1, user.getRole());
-
-        return String.valueOf(prSt);
-    }
 
     public QuotesDB getAllQuotes() throws SQLException, ClassNotFoundException {
         makeConnection();

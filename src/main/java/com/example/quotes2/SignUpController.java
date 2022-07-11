@@ -34,6 +34,9 @@ public class SignUpController {
     private Label welcomeText;
 
     @FXML
+    private TextField studygroup;
+
+    @FXML
     void setSignUpButton() {
         try {
             signUpNewUser();
@@ -50,9 +53,10 @@ public class SignUpController {
         String login = signupField.getText();
         String password = passwordsuField.getText();
         String role = this.role.getText();
+        String study_group = studygroup.getText();
         int id = dbHandler.MyID();
 
-        User user = new User(id, login,password,role);
+        User user = new User(id, login,password,role, study_group);
         dbHandler.signUpUser(user);
     }
 

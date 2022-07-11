@@ -4,7 +4,7 @@ package com.example.quotes2;
 import java.sql.Date;
 
 public class Quote {
-    public int id;
+    public int id, id_user;
     public String quote, teacher, subject;
     public Date date;
 

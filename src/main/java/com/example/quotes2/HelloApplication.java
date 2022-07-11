@@ -4,8 +4,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public class HelloApplication extends Application {
@@ -19,5 +21,15 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    public static void openNewScene(String window) throws IOException {
+//        signUpButton.getScene().getWindow().hide();
+        Stage stage = new Stage();
+
+        Parent root = FXMLLoader.load(HelloApplication.class.getResource(window));
+        stage.setScene(new Scene(root));
+        stage.setTitle("Teachers' quotes");
+        stage.show();
     }
 }
